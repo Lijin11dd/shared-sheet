@@ -4,6 +4,7 @@
 - 登录保护
 - 第一列手动输入数字，第二列自动 = 第一列 × 47
 - 每行带"最后修改时间"，后保存者生效，并提示被覆盖的他人修改
+- 表格下方实时合计
 """
 import streamlit as st
 import pandas as pd
@@ -155,6 +156,13 @@ edited = st.data_editor(
         "col_b": st.column_config.NumberColumn("×47 结果", disabled=True),
         "updated_at": st.column_config.TextColumn("最后修改", disabled=True, width="medium"),
     },
+)
+
+# ---- 合计统计（基于当前编辑数据实时计算，不入库）----
+col_a_total = pd.to_numeric(edited["col_a"], errors="coerce").fillna(0).sum()
+total = col_a_total * FACTOR
+st.markdown(
+    f"### 合计：**{total:,.0f}**　（第一列合计 {col_a_total:,.0f} × {FACTOR}）"
 )
 
 if st.button("保存"):
