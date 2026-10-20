@@ -10,6 +10,7 @@ import pandas as pd
 import sqlite3
 import hashlib
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 DB = "sheet.db"
 FACTOR = 47                     # 倍数，想改这里
@@ -17,7 +18,8 @@ FACTOR = 47                     # 倍数，想改这里
 
 # ---------- 通用 ----------
 def now_str():
-    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    """返回北京时间（Asia/Shanghai），不受服务器时区影响"""
+    return datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")
 
 
 # ---------- 数据层 ----------
