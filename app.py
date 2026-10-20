@@ -64,7 +64,7 @@ if not st.session_state["logged_in"]:
 # 已登录才显示表格
 logout()
 st.sidebar.write(f"当前用户：{st.session_state['user']}")
-st.title("多人协作")
+st.title("多人协作共享表格")
 st.caption("大家改完点【保存】，数据写入共享数据库")
 
 df = load_df()
